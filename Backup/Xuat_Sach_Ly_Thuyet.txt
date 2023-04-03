@@ -1,1 +1,0 @@
-Ma sach ly thuyet = SGK001, Ngay nhap=20-10-2003, Ngay xuat=08-03-2004, so luong xuat kho: 5, so luong hang con lai:0, so tien hang: 80000.0
