@@ -1,0 +1,2 @@
+
+Sach ly thuyet - ma sach: 001, ten sach: vatly, lop: 12, nam xuat ban: 2001, nha xuat ban: GDĐT, so luong: 50, gia sach: 25000.0, ngay nhap: 04-04-2023

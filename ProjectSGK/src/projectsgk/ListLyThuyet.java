@@ -39,9 +39,7 @@ public class ListLyThuyet {
     }
     //3.Đếm số lượng sách lý thuyết
     public int demSLT(){
-        
-        return this.list1.size();
-        
+        return this.list1.size();  
     }
     //4.Tìm kiếm sách lý thuyết
     public void timSLT(String tenSach){
@@ -52,7 +50,7 @@ public class ListLyThuyet {
         }
     }
     //5.Sắp xếp lại sách lý thuyết
-     public void SXSLT(){
+    public void SXSLT(){
         Collections.sort(this.list1, new Comparator<LyThuyet>(){
             @Override
             public int compare(LyThuyet sl1, LyThuyet sl2) {
@@ -76,47 +74,50 @@ public class ListLyThuyet {
 
         for(int i = 0;i < list1.size();i++){
             if(ma.equals(list1.get(i).getMaSach())){
-                System.out.println("-------------- BAT DAU --------------");
+                System.out.println("-------------- NHAP DU LIEU MOI --------------");
                 System.out.print("Nhap ma sach moi :"); String masach = input.nextLine();
                 System.out.print("Nhap ten sach : "); String tenSach = input.nextLine();
-                System.out.print("Nhap nha xuat ban sach : "); String nhaXuatBan = input.nextLine();               
-                System.out.print("Nhap nam xuat ban sach : "); int namXuatBan = input.nextInt();
-                if(namXuatBan<0){
-                    System.out.print(" Hay nhap lai nam xuat ban : ");
-                    namXuatBan = input.nextInt();    
-                }
-                System.out.println("-------------- NHAP KHO --------------");
-                System.out.print("ngay:"); int day = input.nextInt();
-                System.out.print("thang:"); int month = input.nextInt();
-                System.out.print("nam:"); int year = input.nextInt();
+                int lop;
+                    do {
+                        System.out.print("Nhap lop: ");
+                        lop = input.nextInt();    
+                    } while (lop <= 0 || lop > 12);
+                System.out.print("Nhap nha xuat ban: "); String nhaXuatBan = input.next(); 
+                int namXuatBan;
+                    do {
+                        System.out.print("Nhap nam xuat ban: ");
+                        namXuatBan = input.nextInt();
+                    } while (namXuatBan <= 0);
+                System.out.print("Nhap ngay nhap: "); int day = input.nextInt();
+                System.out.print("Nhap thang nhap: "); int month = input.nextInt();
+                System.out.print("Nhap nam nhap: "); int year = input.nextInt();
                 lt.hien(day, month, year);
-                System.out.print("Nhap so luong sach ly thuyet : "); int soLuong = input.nextInt();
-                if(soLuong<0){
-                    System.out.print(" Hay nhap lai so luong sach ly thuyet");
-                    soLuong = input.nextInt();    
-                }
-                System.out.print("Nhap gia tien sach ly thuyet : "); double giaSach = input.nextDouble();
-                if(giaSach<0){
-                    System.out.print("Nhap lai gia tien cua sach ly thuyet: ");
+                int soLuong;
+                    do {
+                        System.out.print("Nhap so luong sach ly thuyet: ");
+                        soLuong = input.nextInt();    
+                    }while (soLuong<0);
+                double giaSach;
+                do {
+                    System.out.print("Nhap gia tien cua sach ly thuyet: ");
                     giaSach = input.nextDouble();    
-                }
+                } while (giaSach<0);
 
                 list1.get(i).setMaSach(masach);
                 list1.get(i).setTenSach(tenSach);
-                list1.get(i).setNhaXuatBan(nhaXuatBan);
+                list1.get(i).setLop(lop);
                 list1.get(i).setNamXuatBan(namXuatBan);
+                list1.get(i).setNhaXuatBan(nhaXuatBan);
                 list1.get(i).setSoLuong(soLuong);
                 list1.get(i).setGiaSach(giaSach);
                 list1.get(i).setNgayNhap(lt.getNgayNhap());
-
-
             }
         }
     }
     //7. Xóa sách lý thuyết
     public void xoaSLT(){
         Scanner input = new Scanner(System.in);
-        System.out.println("nhap vao Ma Sach can xoa : ");
+        System.out.println("Nhap vao ma sach can xoa : ");
         String maSach =  input.nextLine();
         int d=-1;
         boolean position = false;
@@ -125,28 +126,28 @@ public class ListLyThuyet {
                 position = true;
                 d = i;
                 break;                 
+            }
         }
-        }
-        if(position==false) System.out.println("khong tim thay Ma Sach ");
+        if(position==false) System.out.println("Khong tim thay ma sach!");
         else{
             list1.remove(d);
-            System.out.println("Xoa thanh cong");
+            System.out.println("Xoa thanh cong!");
         }
     }
-       //8.Lưu file
-        public void luuSLT(File file){
+    //8.Lưu file
+    public void luuSLT(File file){
         try{
         FileWriter fw = new FileWriter(file,true);
         BufferedWriter bw = new BufferedWriter(fw);
-        for(LyThuyet SachLT : list1){
-            bw.newLine();
-            bw.write(SachLT.toString());
-            bw.newLine();
-        }   
+            for(LyThuyet SachLT : list1){
+                bw.newLine();
+                bw.write(SachLT.toString());
+                bw.newLine();
+            }   
         bw.close();
-        System.out.println("Xuat file hoan tat");
-    }catch (Exception e){
-    }
+        System.out.println("Luu thanh cong!");
+        }catch (Exception e){
+        }
     }
     //9.Đọc file
        public void docSLT(File file){
@@ -159,14 +160,15 @@ public class ListLyThuyet {
                 String[] info = line.split("[|]");
                 String maSach = info[0].trim();
                 String tenSach = info[1].trim();
-                String nhaXuatBan = info[2].trim();                        
+                int lop = Integer.parseInt(info[2].trim());          
                 int namXuatBan = Integer.parseInt(info[3].trim());
-                int soLuong = Integer.parseInt(info[4].trim());
-                double giaSach = Double.parseDouble(info[5].trim());
-                int year = Integer.parseInt(info[6].trim());
-                int month = Integer.parseInt(info[7].trim());
-                int day = Integer.parseInt(info[8].trim());
-                list1.add(new LyThuyet(maSach,tenSach,nhaXuatBan,namXuatBan,soLuong,giaSach,lt.hien(year, month, day)));
+                String nhaXuatBan = info[4].trim();              
+                int soLuong = Integer.parseInt(info[5].trim());
+                double giaSach = Double.parseDouble(info[6].trim());
+                int year = Integer.parseInt(info[7].trim());
+                int month = Integer.parseInt(info[8].trim());
+                int day = Integer.parseInt(info[9].trim());
+                list1.add(new LyThuyet(maSach, tenSach, lop, namXuatBan, nhaXuatBan, soLuong, giaSach,lt.hien(year, month,day)));
             }
     }catch (Exception e){
     }
@@ -185,38 +187,34 @@ public class ListLyThuyet {
             position = true;
             d=i;
             do{
-                System.out.println("Nhap ngay xuat kho : ");
-                System.out.print("Ngay:");  int day = input.nextInt();
-                System.out.print("Thang:");  int month = input.nextInt();
-                System.out.print("Nam:");  int year = input.nextInt();
+                System.out.print("Nhap ngay xuat: ");  int day = input.nextInt();
+                System.out.print("Nhap thang xuat: ");  int month = input.nextInt();
+                System.out.print("Nhap nam xuat: ");  int year = input.nextInt();
                 lt.xuat(day, month, year);
                 if(list1.get(i).getNgayNhap().compareTo(lt.ngayXuat)>0){
-                    System.out.println("Nhap lai :");
+                    System.out.println("Nhap lai: ");
                 }
-           }while(list1.get(i).getNgayNhap().compareTo(lt.ngayXuat)>0);
-                System.out.println("Nhap -so sach- can xuat kho");
+            }while(list1.get(i).getNgayNhap().compareTo(lt.ngayXuat)>0);
+                System.out.println("Nhap so sach ly thuyet can xuat kho: ");
                 int xKho = input.nextInt();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 String nXuat = sdf.format(lt.ngayXuat);
                 String ngayNhapLT = sdf.format(list1.get(i).getNgayNhap());
-                System.out.println("Ma sach ="+ maSach +", Ngay nhap="+ngayNhapLT+", Ngay xuat="+nXuat+", so luong xuat kho: "+xKho+", so luong hang con lai:"+(list1.get(i).getSoLuong()-xKho)+", so tien hang: "+(double)(xKho*0.8*list1.get(i).getGiaSach()));
+                System.out.println("Ma sach ="+ maSach +", Ngay nhap="+ngayNhapLT+", Ngay xuat="+nXuat+", so luong xuat kho: "+xKho+", so luong hang con lai:"+(list1.get(i).getSoLuong()-xKho)+", so tien hang: "+(double)(xKho*1*list1.get(i).getGiaSach()));
                 list1.get(i).setSoLuong(list1.get(i).getSoLuong());
             try {
-            FileWriter fw = new FileWriter("Xuat_Sach_Ly_Thuyet.txt",true);
+            FileWriter fw = new FileWriter("PhieuxuatkhoLT.txt",true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("Ma sach ly thuyet = "+ maSach +", Ngay nhap="+ngayNhapLT+", Ngay xuat="+nXuat+", so luong xuat kho: "+xKho+", so luong hang con lai:"+(list1.get(i).getSoLuong()-xKho)+", so tien hang: "+(double)(xKho*0.8*list1.get(i).getGiaSach()));
+            bw.write("Ma sach ly thuyet = "+ maSach +", Ngay nhap="+ngayNhapLT+", Ngay xuat="+nXuat+", so luong xuat kho: "+xKho+", so luong hang con lai:"+(list1.get(i).getSoLuong()-xKho)+", so tien hang: "+(double)(xKho*1*list1.get(i).getGiaSach()));
             bw.newLine();
             bw.close();
            } catch (Exception e) {
            }
            }    
        }if(position==false){
-                System.out.println("---------------Khong Tim Thay---------------");}
+                System.out.println("Khong tim thay sach!");}
        else if(list1.get(d).getSoLuong()==0){
            list1.remove(d);
-       }
-           
-       
+       } 
     }     
-
 }

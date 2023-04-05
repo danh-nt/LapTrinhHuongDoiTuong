@@ -9,8 +9,8 @@ public class LyThuyet extends SGK{
     public LyThuyet() {
     }
 
-    public LyThuyet(String maSach, String tenSach,String nhaXuatBan , int namXuatBan , int soLuong,double giaSach,Date ngayNhap) {
-        super(maSach, tenSach, namXuatBan, nhaXuatBan, soLuong, giaSach, ngayNhap);
+    public LyThuyet(String maSach, String tenSach, int lop, int namXuatBan,  String nhaXuatBan, int soLuong, double giaSach, Date ngayNhap) {
+        super(maSach, tenSach, lop, namXuatBan, nhaXuatBan, soLuong, giaSach, ngayNhap);
     }
 
 
@@ -18,7 +18,7 @@ public class LyThuyet extends SGK{
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String ngayNhapLT = sdf.format(ngayNhap);
-        return "Sach Ly Thuyet : \n" + "Ma Sach :" + maSach + ", Ten sach " + tenSach + ", Nam xuat ban : " + namXuatBan+ ", Nha xuat ban :" + nhaXuatBan + ", So luong : "+soLuong+", Gia sach : "+giaSach+", ngay nhap kho="+ngayNhapLT;
+        return "Sach ly thuyet [" + "ma sach: " + maSach + ", ten sach: " + tenSach + ", lop: " + lop + ", nam xuat ban: " + namXuatBan + ", nha xuat ban: " + nhaXuatBan + ", so luong: " + soLuong + ", gia sach: " + giaSach + ", ngay nhap: " + ngayNhapLT + "]";
     }
     @Override
     public Date hien(int day,int month,int year){
