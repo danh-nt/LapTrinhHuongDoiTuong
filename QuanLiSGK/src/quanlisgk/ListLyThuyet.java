@@ -33,6 +33,9 @@ public class ListLyThuyet {
     }
     //2.  In ra số lượng sách lý thuyết
     public void inSLT(){
+        if(list1.isEmpty()){
+            System.out.println("kho trong");
+        }
         for(LyThuyet SachLT : list1){
             System.out.println(SachLT+"\n");   
     }
@@ -43,6 +46,8 @@ public class ListLyThuyet {
     }
     //4.Tìm kiếm sách lý thuyết
     public void timSLT(String tenSach){
+        if(list1.isEmpty())
+            System.out.println("khong co sach nao trong kho");
         for(LyThuyet SachLT : list1){
             if(SachLT.getTenSach().contains(tenSach)){
                System.out.println(SachLT);
